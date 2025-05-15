@@ -1,20 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 
-# Create a figure and axis
-fig, ax = plt.subplots()
-x = np.linspace(0, 2 * np.pi, 200)
-line, = ax.plot(x, np.sin(x))
-
-# Update function for animation
-def update(frame):
-    line.set_ydata(np.sin(x + frame / 10.0))  # Shift sine wave
-    return line,
-
-# Create the animation
-ani = animation.FuncAnimation(fig, update, frames=100, interval=50, blit=True)
-
-plt.title("Animated Sine Wave")
+plt.figure(figsize=(10,8))
+x = np.array([1, 2, 2, 10, 2, 2, 1])
+alpha = np.linspace(0, 1, 5)
+#alpha = np.array([0.2])
+for a in alpha:
+    y = [x[0]]
+    for n in range(1, len(x)):
+        cal = (1 - a) * y[n - 1] + a * x[n]
+        y.append(cal)
+    
+    plt.plot(y, label=f'alpha={a:.2f} y[n]', marker='o')
+plt.plot(x, label='x[n]', color='gray')
+plt.title('Effect of Alpha')
 plt.grid(True)
+plt.xlabel('n and X[i]')
+plt.ylabel('X[n] and Y[i]')
+plt.legend()
 plt.show()
